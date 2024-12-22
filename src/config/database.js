@@ -2,11 +2,9 @@ export default {
   username: 'postgres',
   password: 'postgres',
   database: 'usersdb',
-  host: 'localhost',
+  host: 'db',
   dialect: 'postgres',
-  define:{
-    timestamp:true,
-    undescored:true, 
-    undescoredAll:true 
-  }
+  define: {
+    timestamps: true
+  },
 };

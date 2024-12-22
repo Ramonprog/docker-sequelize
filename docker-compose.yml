@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app_container
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    restart: unless-stopped
+    command: sh -c "npm install && npx sequelize-cli db:migrate && npm run dev"
+
+  db:
+    image: postgres:alpine
+    container_name: db_container
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: usersdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    restart: unless-stopped
