@@ -1,6 +1,6 @@
 import express from 'express';
 import routes from './routes.js'
-import User from './models/User.js';
+import Users from './models/Users.js'; 
 import Sequelize from 'sequelize';
 import config from './config/database.js'
 
@@ -9,7 +9,9 @@ app.use(express.json());
 
 const sequelize = new Sequelize(config);
 
-User.init(sequelize);
+Users.init(sequelize);
+
+app.use('/api', routes);
 
 sequelize.authenticate()
 .then(() => {
@@ -22,5 +24,4 @@ sequelize.authenticate()
   console.error('Unable to connect to the database:', err);
 });
 
-app.use(routes);
 
